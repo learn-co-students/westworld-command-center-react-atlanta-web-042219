@@ -2,30 +2,35 @@ import React, { Component } from 'react';
 import '../stylesheets/Headquarters.css';
 import { Grid } from 'semantic-ui-react';
 import Details from './Details'
+import LogPanel from './LogPanel.js'
+import ColdStorage from './ColdStorage.js'
 
 
-class Headquarters extends Component {
-  // Remember, there's many ways to do this. This doesn't have to be a class component. It's up to you.
+const Headquarters = function(props) {
+  return(
+    <Grid celled='internally'>
+      <Grid.Column width={8}>
+        <ColdStorage
+          hosts={props.hosts}
+          getCSHosts={props.getCSHosts}
+          clickHost={props.clickHost} />
+      </Grid.Column>
 
-  render(){
-    return(
-      <Grid celled='internally'>
-        <Grid.Column width={8}>
+      <Grid.Column width={5}>
+        <Details
+          host={props.host}
+          areas={props.areas}
+          changeHostAttribute={props.changeHostAttribute} />
+      </Grid.Column>
 
-        {/* Something goes here.... */}
-
-        </Grid.Column>
-        <Grid.Column width={5}>
-          <Details />
-        </Grid.Column>
-        <Grid.Column width={3}>
-
-        {/* and here. Take visual cues from the screenshot/video in the Readme. */}
-
-        </Grid.Column>
-      </Grid>
-    )
-  }
+      <Grid.Column width={3}>
+        <LogPanel
+          hosts={props.hosts}
+          logs={props.logs}
+          changeEveryActive={props.changeEveryActive} />
+      </Grid.Column>
+    </Grid>
+  )
 }
 
 export default Headquarters;
