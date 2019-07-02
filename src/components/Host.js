@@ -2,14 +2,13 @@ import React from 'react';
 import '../stylesheets/Host.css'
 import { Card } from 'semantic-ui-react'
 
-const Host = () => {
+const Host = (props) => {
 
   return(
     <Card
-      className="host selected"
-      {/* NOTE: The className "host selected" renders a different style than simply "host". */}
-      onClick={ /* On Click what? */}
-      image={/* I wonder what goes here...*/}
+      className={props.host.id === props.thisHost.id ? 'host selected' : 'host' }
+      onClick={(e)=> props.clickHost(props.thisHost)}
+      image={props.thisHost.imageUrl}
       raised
     />
   )
