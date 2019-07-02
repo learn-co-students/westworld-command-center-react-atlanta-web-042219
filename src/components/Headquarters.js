@@ -12,6 +12,7 @@ const Headquarters = function(props) {
       <Grid.Column width={8}>
         <ColdStorage
           hosts={props.hosts}
+          host={props.host}
           getCSHosts={props.getCSHosts}
           clickHost={props.clickHost} />
       </Grid.Column>

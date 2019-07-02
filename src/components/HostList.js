@@ -5,7 +5,7 @@ import Host from './Host.js'
 const HostList = (props) => {
   return(
     <Card.Group itemsPerRow={6}>
-    	{props.hosts.map(host => <Host key={"host-"+host.id} host={host} clickHost={props.clickHost} />)}
+    	{props.hosts.map(host => <Host key={"host-"+host.id} thisHost={host} host={props.host} clickHost={props.clickHost} />)}
     </Card.Group>
   )
 }

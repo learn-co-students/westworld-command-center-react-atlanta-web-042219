@@ -6,9 +6,9 @@ const Host = (props) => {
 
   return(
     <Card
-      className="host selected"
-      onClick={(e)=> props.clickHost(props.host)}
-      image={props.host.imageUrl}
+      className={props.host.id === props.thisHost.id ? 'host selected' : 'host' }
+      onClick={(e)=> props.clickHost(props.thisHost)}
+      image={props.thisHost.imageUrl}
       raised
     />
   )

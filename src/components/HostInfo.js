@@ -44,6 +44,7 @@ class HostInfo extends Component {
               <Divider />
               Current Area:
               <Dropdown
+                disabled={!this.props.host.active}
                 onChange={(e, {value})=> this.props.changeHostAttribute('area', value) }
                 value={this.props.host.area}
                 options={this.areaOptions()}
