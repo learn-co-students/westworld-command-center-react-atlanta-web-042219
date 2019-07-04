@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import '../stylesheets/Headquarters.css';
+import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import Details from './Details'
 import LogPanel from './LogPanel.js'
 import ColdStorage from './ColdStorage.js'
+import '../stylesheets/Headquarters.css';
 
 
-const Headquarters = function(props) {
+const Headquarters = props => {
   return(
     <Grid celled='internally'>
-      <Grid.Column width={8}>
+      <Grid.Column width={7}>
         <ColdStorage
           hosts={props.hosts}
           host={props.host}
@@ -24,7 +24,7 @@ const Headquarters = function(props) {
           changeHostAttribute={props.changeHostAttribute} />
       </Grid.Column>
 
-      <Grid.Column width={3}>
+      <Grid.Column width={4}>
         <LogPanel
           hosts={props.hosts}
           logs={props.logs}

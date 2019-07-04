@@ -1,6 +1,5 @@
 import React from 'react'
 import { Segment, Button } from 'semantic-ui-react';
-import { Log } from '../services/Log'
 
 const LogPanel = (props) => {
 

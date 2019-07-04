@@ -13,10 +13,6 @@ class HostInfo extends Component {
     }
   })
 
-  toggle = () => {
-    console.log("The radio button fired");
-  }
-
   render(){
     return (
       <Grid>
@@ -31,7 +27,7 @@ class HostInfo extends Component {
         <Grid.Column width={10}>
           <Card>
             <Card.Content>
-              <Card.Header>{this.props.host.firstName+' '+this.props.host.lastName} | { this.props.host.gender === 'Male' ? <Icon name='man' /> : <Icon name='woman' />}</Card.Header>
+              <Card.Header>{this.props.host.firstName+(this.props.host.lastName !== 'n/a' ? ' '+this.props.host.lastName : '')} { this.props.host.gender === 'Male' ? <Icon name='man' /> : <Icon name='woman' />}</Card.Header>
               <Card.Meta>
                 <Radio
                   onChange={(e)=> this.props.changeHostAttribute('active', !this.props.host.active)}

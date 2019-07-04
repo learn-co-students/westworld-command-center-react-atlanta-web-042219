@@ -12,7 +12,7 @@ class App extends Component {
     host: {},
     hosts: [],
     areas: [],
-    logs: []
+    logs: [Log.notify('Welcome to Westworld.')]
   }
 
   addLog = (newLog)=> this.setState({ logs: {...this.state.logs, newLog} })
@@ -36,8 +36,7 @@ class App extends Component {
 
     if(attr === 'active') {
       newLog = value ? Log.warn(newHost.firstName+' has been activated!') : Log.notify(newHost.firstName+' has been decommissioned.')
-      // newHost.area = this.state.areas.find(area => area.name === 'cold_storage')
-      // console.log(this.state.areas.find(area => area.name === 'cold_storage'))
+      newHost.area = 'cold_storage'
     }
     else if(attr === 'area' && newHost.active) {
       let newArea = this.state.areas.find(area => area.name === value)
@@ -48,7 +47,7 @@ class App extends Component {
         newHost = this.state.host
         newHosts = this.state.hosts
       }
-      else if(newArea.limit === this.getAreaHosts(newArea).length ) {
+      else if(newArea.limit <= this.getAreaHosts(newArea).length ) {
         newLog = Log.error(`${newHost.firstName} tried to move from ${this.state.host.area} to ${newHost.area}, but that area was full.`)
         newHost = this.state.host
         newHosts = this.state.hosts
@@ -79,7 +78,7 @@ class App extends Component {
   }
 
 
-  getCSHosts = ()=> this.state.hosts.filter(host => !host.active)
+  getCSHosts = ()=> this.state.hosts.filter(host => !host.active || host.area === 'cold_storage')
 
   getAreaHosts = (area)=> {
     return this.state.hosts.filter(host => host.active && host.area === area.name)
@@ -90,19 +89,12 @@ class App extends Component {
     .then(resp => resp.json())
     .then(hosts => this.setState({ hosts: hosts }))
 
-    // let coldStorage = {
-    //   id: 99,
-    //   name: 'cold_storage',
-    //   limit: 99,
-    //   auth_req: false
-    // }
-
     fetch('http://localhost:3000/areas')
     .then(resp => resp.json())
     .then(areas => this.setState({ areas: areas }))
   }
 
-  // patchHost = (updatedHost?)=> {
+  // patchHost = host => {
   //   fetch('http://localhost:3000/hosts/'+host.id,{
   //     method: 'POST/PATCH/DELETE',
   //     headers: {Accept: 'application/json', 'Content-Type':'application/json'},
@@ -113,12 +105,6 @@ class App extends Component {
   render(){
     return (
       <Segment id='app'>
-        <WestworldMap
-          host={this.state.host}
-          areas={this.state.areas}
-          getAreaHosts={this.getAreaHosts}
-          clickHost={this.clickHost} />
-
         <Headquarters
           host={this.state.host}
           hosts={this.state.hosts}
@@ -128,6 +114,12 @@ class App extends Component {
           areas={this.state.areas}
           clickHost={this.clickHost}
           changeHostAttribute={this.changeHostAttribute} />
+
+        <WestworldMap
+          host={this.state.host}
+          areas={this.state.areas}
+          getAreaHosts={this.getAreaHosts}
+          clickHost={this.clickHost} />
       </Segment>
     )
   }
